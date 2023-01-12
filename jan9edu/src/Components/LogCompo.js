@@ -1,12 +1,22 @@
+import logSrv from "../Services/logSrv";
+
 function LogCompo() {
     const login = (e) => {
-        console.log(e.target.value)
+        e.preventDefault();
+        const formData = new FormData(e.target)
+        logSrv.login("userLog.php", formData)
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
     return (
-        <form onSubmit={login}>
+        <form onSubmit={login} method="POST">
             <input name="pass" placeholder="password"></input>
             <input name="fname" placeholder="fname"></input>
-            <input type="submit" value="submit"></input>
+            <button type="submit">submit</button>
         </form>
     )
 }
